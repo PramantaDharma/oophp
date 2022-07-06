@@ -36,7 +36,7 @@ class Produk {
 class Android extends Produk {
     public function CetakInfoProduk()
     {
-        $str = " Android : {$this->getLabel()} (Rp. {$this->harga}) - {$this->android} | {$this->spesifikasi}";
+        $str = " Android : {$this->getLabel()} (Rp. {$this->harga}) | {$this->spesifikasi} - {$this->android}";
         return $str;
     }
 }
@@ -44,7 +44,7 @@ class Android extends Produk {
 class Desktop extends Produk{
     public function CetakInfoProduk()
     {
-        $str = " Desktop : {$this->getLabel()} (Rp. {$this->harga}) - {$this->desktop} | {$this->spesifikasi}";
+        $str = " Desktop : {$this->getLabel()} (Rp. {$this->harga}) | {$this->spesifikasi} - {$this->desktop} ";
         return $str;   
     }
 }
