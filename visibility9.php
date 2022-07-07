@@ -3,9 +3,12 @@
 class Produk {
     public $seri,
            $merek,
-           $harga,
-           $spesifikasi
-           ;
+           $spesifikasi;
+
+    // private $diskon = 0;
+    protected $diskon = 0;
+
+    private $harga;
 
     public function __construct( $seri = "seri", $merek = "merek", $harga = "harga", $spesifikasi = "spesifikasi" )
     {
@@ -13,6 +16,14 @@ class Produk {
         $this->merek = $merek;
         $this->harga = $harga;
         $this->spesifikasi = $spesifikasi;
+    }
+
+    // public function setDiskon ( $diskon ) {
+    //     $this->diskon = $diskon;
+    // }
+
+    public function getHarga() {
+        return $this->harga - ( $this->harga * $this->diskon / 100 );
     }
 
     public function getLabel() {
@@ -36,6 +47,10 @@ class Android extends Produk {
     {
         parent::__construct( $seri, $merek, $harga, $spesifikasi );
         $this->android = $android;
+    }
+
+    public function setDiskon ( $diskon ) {
+        $this->diskon = $diskon ;
     }
 
     public function CetakInfoProduk()
@@ -72,8 +87,12 @@ class CetakInfoProduk {
 
 // Seri Merek (Rp. Harga) - Versi OS | Spesifikasi.
 $acer = new Desktop( "Nitro", "Acer", 1900000000, "Microsoft Windows 11", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia delectus optio minus reprehenderit maiores consectetur ex corporis deserunt, tenetur, ea dicta consequatur laudantium facilis fuga." );
-$samsung = new Android( "Galaxy S22", "Samsung", 2100000000, "Android 11", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia tempore dolor delectus impedit minima nesciunt consectetur aperiam similique iure perferendis!" );
+$samsung = new Android( "Galaxy S22", "Samsung", 5556   , "Android 11", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia tempore dolor delectus impedit minima nesciunt consectetur aperiam similique iure perferendis!" );
 
 echo $acer->CetakInfoProduk();
 echo "<br>";
 echo $samsung->CetakInfoProduk();
+echo "<hr>";
+
+$samsung->setDiskon(50);
+echo $samsung->getHarga();
