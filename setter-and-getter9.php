@@ -6,8 +6,6 @@ class Produk {
            $spesifikasi,
            $harga,
            $diskon = 0;
-        
-
 
     public function __construct( $seri = "seri", $merek = "merek", $harga = "harga", $spesifikasi = "spesifikasi" )
     {
@@ -134,5 +132,8 @@ $asus->setSeri("Asus");
 echo $asus->getSeri();
 echo "<hr>";
 
-$acer->setSpesifikasi(true);
+$acer->setSpesifikasi("Jadi ini spek nya gaes");
 echo $acer->getSpesifikasi();
+echo "<br>";
+$acer->setDiskon(50);
+echo $samsung->getHarga();
