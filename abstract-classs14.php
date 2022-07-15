@@ -1,6 +1,6 @@
 <?php
 
-class Produk {
+abstract class Produk {
     private $seri,
            $merek,
            $spesifikasi,
@@ -66,7 +66,9 @@ class Produk {
         ";
     }
 
-    public function CetakInfoProduk() {
+    abstract public function GetInfoProduk();
+
+    public function GetInfo() {
         // Seri Merek (Rp. Harga) - Versi OS | Spesifikasi.
         $str = "{$this->getLabel()} (Rp. $this->harga) | Spesifikasi : $this->spesifikasi ";
         return $str;
@@ -82,9 +84,9 @@ class Android extends Produk {
         $this->android = $android;
     }
 
-    public function CetakInfoProduk()
+    public function GetInfoProduk()
     {
-        $str = " Android : ". parent::CetakInfoProduk() ." - $this->android";
+        $str = " Android : ". $this->getInfo() ."- $this->android";
         return $str;
     }
 }
@@ -99,17 +101,27 @@ class Desktop extends Produk{
 
     }
 
-    public function CetakInfoProduk()
+    public function GetInfoProduk()
     {
-        $str = " Desktop : ". parent::CetakInfoProduk() ." - $this->desktop ";
+        $str = " Desktop : ". parent::getInfo() ." - $this->desktop ";
         return $str;
     }
 }
 
 
 class CetakInfoProduk {
-    public function cetak( Produk $produk ) {
-        $str = "{$produk->getLabel()} (Rp. $produk->harga) | $produk->spesifikasi";
+    public $listProduct = [];
+
+    public function addProduct( Produk $product ){
+        $this->listProduct[] = $product;
+    }
+
+    public function CetakList() {
+        $str = "List Of Product : <br>";
+
+        foreach( $this->listProduct as $prod ){
+            $str .= " - {$prod->GetInfoProduk()} <br>";
+        }
         return $str;
     }
 }
@@ -118,3 +130,7 @@ class CetakInfoProduk {
 $acer = new Desktop( "Nitro", "Acer", 1900000000, "Microsoft Windows 11", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia delectus optio minus reprehenderit maiores consectetur ex corporis deserunt, tenetur, ea dicta consequatur laudantium facilis fuga." );
 $samsung = new Android( "Galaxy S22", "Samsung", 5556   , "Android 11", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia tempore dolor delectus impedit minima nesciunt consectetur aperiam similique iure perferendis!" );
 
+$product = new CetakInfoProduk();
+$product->addProduct( $acer );
+$product->addProduct( $samsung );
+echo $product->CetakList();
